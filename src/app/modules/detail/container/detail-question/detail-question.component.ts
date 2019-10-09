@@ -43,7 +43,7 @@ export class DetailQuestionComponent implements OnInit {
       });
     } else {
       alert("Please Login to post an answer");
-      this.router.navigate(['/login']);
+      this.router.navigateByUrl('landing/login');
     }
   }
 
@@ -63,7 +63,7 @@ export class DetailQuestionComponent implements OnInit {
       });
     } else {
       alert("Please Login to post a comment");
-      this.router.navigate(['/login']);
+      this.router.navigateByUrl('landing/login');
     }
   }
 
@@ -90,7 +90,7 @@ export class DetailQuestionComponent implements OnInit {
       });
     } else {
       alert("Please Login to post a comment");
-      this.router.navigate(['/login']);
+      this.router.navigateByUrl('landing/login');
     }
 
 

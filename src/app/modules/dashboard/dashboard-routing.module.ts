@@ -1,19 +1,29 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { StackoverflowComponent } from './container/stackoverflow/stackoverflow.component';
+import { DashboardLayoutComponent } from './container/dashboard-layout/dashboard-layout.component';
+import { AskQuestionComponent } from './container/ask-question/ask-question.component';
 
 
 export const routes: Routes = [
   {
     path: '',
-    component: StackoverflowComponent,
-    // children: [
-    //   { path: '', redirectTo: 'stackoverflow', pathMatch: 'full' },
-    //   {
-    //     path:'stackoverflow',
-    //     component: StackoverflowComponent
-    //   }
-    // ]
+    component: DashboardLayoutComponent,
+    children: [
+      { path: '', redirectTo: 'stackoverflow', pathMatch: 'full' },
+      {
+        path:'stackoverflow',
+        component: StackoverflowComponent
+      },
+      {
+        path:'askquestion',
+        component: AskQuestionComponent
+      },
+      {
+        path: 'detail',
+        loadChildren: () => import('../detail/detail.module').then( m => m.DetailModule)
+      }
+    ]
   }
 ];
 

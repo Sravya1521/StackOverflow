@@ -8,9 +8,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { MyMaterialModule } from 'src/app/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LandingLayoutComponent } from './container/landing-layout/landing-layout.component';
 
 @NgModule({
-  declarations: [HomeComponent, LoginComponent, SignupComponent],
+  declarations: [HomeComponent, LoginComponent, SignupComponent, LandingLayoutComponent],
   imports: [
     CommonModule,
     LandingRoutingModule,

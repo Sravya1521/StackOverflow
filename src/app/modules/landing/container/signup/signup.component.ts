@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
         });
         if(this.exist) {
           alert("You have already registered. Please Login");    
-          this.router.navigate(['/login']);
+          this.router.navigateByUrl('landing/login');
         } else {
           
           this.service.registerUserDetails(
@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit {
             {
               console.log(data);
               alert("Registration Successfull");
-              this.router.navigate(['/login']);
+              this.router.navigateByUrl('landing/login');
             }, error => {
               //console.log(error, 'inside ......');
               this.handleError(error); // handling error
@@ -67,7 +67,7 @@ export class SignupComponent implements OnInit {
   }
 
   redirectLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('landing/login');
   }
 
 }

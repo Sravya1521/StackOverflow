@@ -115,7 +115,7 @@ export class AskQuestionComponent implements OnInit {
     }
    // console.log(postdata);
     this.service.postQuestion(postdata).subscribe((data) => {
-      this.router.navigate(['/dashboard']);
+      this.router.navigateByUrl('dashboard/stackoverflow');
     });
   }
 

@@ -24,11 +24,11 @@ export class StackoverflowComponent implements OnInit {
 
     if(this.service.LoggedIn) {
       console.log("Ask Question Clicked");
-      this.router.navigate(['/askquestion']);
+      this.router.navigateByUrl('dashboard/askquestion');
     } else {
      // this.loggedin = false;
       alert("Please login to ask a question");
-      this.router.navigate(['/login']);
+      this.router.navigateByUrl('landing/login');
     }
 
     //this.router.navigate(['/askquestion']);
@@ -36,7 +36,7 @@ export class StackoverflowComponent implements OnInit {
 
   questionDetail(title:string) {
     this.service.questionTitle = title;
-    this.router.navigate(['/detail']);
+    this.router.navigateByUrl('dashboard/detail');
   }
 
 }

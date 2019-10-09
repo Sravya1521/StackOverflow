@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirectSignUp() {
-    this.router.navigate(['/signup']);
+    this.router.navigateByUrl('landing/signup');
   }
 
   login() {
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
         if((this.loginForm.get('password').value == this.users[0].password) )  {
           this.service.isLoggedIn.emit('success');
-          this.router.navigate(['/dashboard']);
+          this.router.navigateByUrl('dashboard/stackoverflow');
         } else {
           this.errorMessage = 'Password is incorrect. Please try again.';
         }

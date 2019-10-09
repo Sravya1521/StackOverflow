@@ -14,10 +14,10 @@ export class HomeComponent implements OnInit {
   }
 
   login() {
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('landing/login');
   }
 
   signUp() {
-    this.router.navigate(['/signup']);
+    this.router.navigateByUrl('landing/signup');
   }
 }

@@ -17,24 +17,8 @@ export const routes: Routes = [
         loadChildren: () => import('../landing/landing.module').then( m => m.LandingModule)
       },
       {
-        path: 'detail',
-        loadChildren: () => import('../detail/detail.module').then( m => m.DetailModule)
-      },
-      {
         path:'dashboard',
         loadChildren: () => import('../dashboard/dashboard.module').then( m => m.DashboardModule)
-      },
-      {
-        path:'askquestion',
-        component: AskQuestionComponent
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
-      {
-        path:'signup',
-        component: SignupComponent
       }
     ]
   }
