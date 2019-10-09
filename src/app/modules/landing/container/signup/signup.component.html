@@ -1,0 +1,44 @@
+<div class="totalClass">
+            <mat-card >
+                <mat-toolbar class= "panelText"><b>Sign Up</b></mat-toolbar>
+                <mat-card-content><br/><br/>
+                    <form [formGroup]="userForm">
+            
+                        <p>
+                                <mat-form-field class="full-width">
+                                    <mat-label>  <i class="fas fa-file-signature"></i>
+                                        Display Name
+                                    </mat-label>
+                                    <input matInput formControlName='displayName' placeholder="name" type="text">
+                                </mat-form-field>
+                        </p>
+            
+                        <p>
+                            <mat-form-field class="full-width">
+                                <mat-label> <i class="fas fa-envelope fa-1x"> </i>
+                                    Email
+                                </mat-label>
+                                <input matInput formControlName='email' placeholder="Email"> 
+                            </mat-form-field>
+                        </p>
+            
+                        <p>
+                            <mat-form-field class="full-width">
+                                <mat-label> <i class="fas fa-key fa-1x"> </i>
+                                    Password
+                                </mat-label>
+                                <input matInput formControlName='password' matTooltip= "Enter atleast 8 characters Uppercase,Lowercase and !@#$... " 
+                                 type='password' 
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,99}$" placeholder="Password">
+                            </mat-form-field>
+                        </p>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button type = "submit" (click)="onRegitration()" color="primary" 
+                    >Register</button>
+                    <button mat-raised-button type = "button" (click)="redirectLogin()" color="primary" 
+          >Login</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>

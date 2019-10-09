@@ -1,0 +1,24 @@
+.mat-form-field {
+    width: 100%;
+    min-width: 300px;
+  }
+ .text{
+     border:0.5px solid;
+     border-color: lightslategray;
+     height: 240px;
+     margin-bottom: 2%;
+ }
+ mat-card-title,
+ mat-card-content {
+   display: flex;
+   justify-content: center;
+ }
+ .mat-form-field {
+    width: 100%;
+    min-width: 300px;
+  }
+  .totalClass {
+    padding-top: 30px;
+    display: flex;
+  justify-content: center;
+ }

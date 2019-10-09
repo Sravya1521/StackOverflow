@@ -1,0 +1,51 @@
+<mat-list style="margin-bottom: 2%;">
+    <ng-container *ngFor="let question of questions">           
+            <mat-list-item class="title" ><h3>{{question.title}}</h3></mat-list-item>
+            <mat-list-item class="description"><p>{{question.description}}</p></mat-list-item>
+            <mat-list style="margin-left:30px;">
+                <div class="tags" *ngFor="let tag of question.tags">
+                    <span>{{ tag.name }}</span>
+                </div>
+            </mat-list>
+            <div>
+                <mat-icon>thumb_up</mat-icon>
+                <mat-icon>thumb_down</mat-icon>
+            </div> 
+
+            <mat-list class="questionComment">
+                <div *ngFor="let comment of question.comments">
+                    <span>{{ comment.comment }}</span>
+                    <mat-divider></mat-divider>
+                </div>
+                <mat-form-field class="questionCommentInput">
+                        <textarea [(ngModel)]="questioncomment"  matInput placeholder="Post comment"></textarea>
+                </mat-form-field>
+                <button mat-raised-button type = "submit" color = "primary" (click)="postQuestionComment()">SUBMIT</button>
+            </mat-list>
+
+            
+
+
+            <mat-divider></mat-divider>
+            <h2>Answers:</h2>
+            <ng-container *ngFor="let answer of question.answers">
+                    <mat-list-item class="description"><p>{{answer.answer}}</p></mat-list-item>
+                    
+                    <mat-list class="answerComment">
+                            <div *ngFor="let comment of answer.comments">
+                                <span>{{ comment.comment }}</span>
+                                <mat-divider></mat-divider>
+                            </div>
+                            <mat-form-field class="answerCommentInput">
+                                    <textarea matInput  #ansCommentInput placeholder="Post comment"></textarea>
+                            </mat-form-field>
+                            <button mat-raised-button type = "submit" color = "primary" (click)="postAnswerComment(answer.answer,ansCommentInput)">SUBMIT</button>
+                    </mat-list>
+                    <mat-divider></mat-divider>
+            </ng-container>
+    </ng-container> 
+</mat-list>
+<mat-form-field class="text">
+    <textarea [(ngModel)]="answer"  matInput placeholder="Post Answer"></textarea>
+</mat-form-field>
+<button mat-raised-button type = "submit" color = "primary" (click)="postAnswer()">SUBMIT</button>

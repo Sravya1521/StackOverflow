@@ -1,0 +1,42 @@
+.totalClass {
+    padding-top: 30px;
+    display: flex;
+  justify-content: center;
+ }
+ .mat-form-field {
+   width: 100%;
+   min-width: 300px;
+ }
+
+ mat-card-title,
+ mat-card-content {
+   display: flex;
+   justify-content: center;
+ }
+
+ .button {
+   display: flex;
+   justify-content: flex-end;
+ }
+
+.panelText{
+ font-family:Apple Chancery, cursive;
+ color:#3F51B5;
+ display:flex;
+ justify-content: center
+}
+
+.namePadding
+{
+ padding-top : 20px;
+}
+
+::ng-deep .bg-img
+{
+   background-image: url('/assets/s5.png');
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center center;
+   background-attachment: fixed;
+}

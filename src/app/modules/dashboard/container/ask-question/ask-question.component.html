@@ -1,0 +1,46 @@
+<div class="totalClass">
+
+<mat-card >
+    <mat-card-content>
+        <form [formGroup]="questionForm">
+        <mat-form-field>
+          <input matInput placeholder="Question Title" formControlName='title'>
+        </mat-form-field>
+
+        <!-- <mat-form-field> -->
+          <textarea class = "text" matInput placeholder="Question Description" formControlName='description'></textarea>
+        <!-- </mat-form-field> -->
+          
+          <mat-form-field class="example-chip-list">
+              <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip
+                  *ngFor="let option of addoptions"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="remove(option)">
+                  {{option.name}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input
+                  placeholder="tags related to your question"
+                  #TagInput
+                  [formControl]="myTag"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)" formControlName='tag'>
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+          <button mat-raised-button type = "submit" color = "primary" (click)="postQuestion()">SUBMIT</button>
+          
+      </form>
+    </mat-card-content>
+</mat-card>
+</div>

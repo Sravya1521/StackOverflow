@@ -1,0 +1,58 @@
+.tags {
+  font-size:10px;
+  display: -webkit-inline-box;
+  background-color: lightgrey;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 1%;
+  margin-bottom: 1%;
+}
+
+.description {
+  height: 20px;
+}
+
+.title span {
+  cursor: pointer;
+}
+
+p {
+  line-height: 1.5em;
+  height: 3em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+}  
+
+
+.description {
+  font-size: 10px;
+}
+
+a {
+  color: blue;
+}
+
+button {
+  float: right;
+  border-radius: 5px;
+  background-color: blue; /* Blue */
+  color: white;
+  padding: 10px 20px;
+}
+
+.allquestions {
+  font-size: 2em;
+  font-weight: bold;
+  margin-left: 1%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.title {
+  color: blue;
+  font-size:15px;
+}

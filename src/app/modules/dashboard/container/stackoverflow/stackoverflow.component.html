@@ -1,0 +1,15 @@
+<mat-label class="allquestions">All Questions</mat-label>
+<button type="button" (click)="askQuestion()">Ask Question</button>
+<mat-list>
+    <ng-container *ngFor="let question of questions">
+        <div class="w3-white w3-text-grey w3-card-4" style="margin-bottom: 1%;">            
+            <a mat-list-item class="title" ><span (click)="questionDetail(question.title)">{{question.title}}</span></a>
+            <mat-list-item class="description"><p>{{question.description}}</p></mat-list-item>
+            <mat-list style="margin-left:30px;">
+                <div class="tags" *ngFor="let tag of question.tags">
+                    <span>{{ tag.name }}</span>
+                </div>
+            </mat-list> 
+        </div>
+    </ng-container> 
+</mat-list>

@@ -1,0 +1,27 @@
+.tags {
+    font-size:10px;
+    display: -webkit-inline-box;
+    background-color: lightgrey;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 1%;
+    margin-bottom: 1%;
+}
+.description {
+    margin-left: 10px;
+}
+mat-icon {
+    margin-left: 2%;
+}
+.questionComment, .answerComment {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.text {
+    width: 95%;
+}
+
+.questionCommentInput, .answerCommentInput {
+    width: 90%;
+}
