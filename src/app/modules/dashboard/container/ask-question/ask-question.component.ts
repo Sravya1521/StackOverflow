@@ -17,11 +17,6 @@ import { AllServicesService } from 'src/app/modules/all-services.service';
 export class AskQuestionComponent implements OnInit {
   myTag = new FormControl();
   options: Tag[] = [];
-  // options: User[] = [
-  //   {name: 'Mary'},
-  //   {name: 'Shelley'},
-  //   {name: 'Igor'}
-  // ];
   filteredOptions: Observable<Tag[]>;
 
   questionForm:FormGroup;
@@ -106,6 +101,13 @@ export class AskQuestionComponent implements OnInit {
   }
 
   postQuestion() {
+    let description = this.questionForm.get('description').value.split("\n");
+    let finalDescription = "";
+    for(var i=0;i<description.length;i++) {
+      finalDescription += description[i]+"<br/>";
+    }
+    console.log(finalDescription);
+
     let postdata = {
       title:this.questionForm.get('title').value,
       description:this.questionForm.get('description').value,

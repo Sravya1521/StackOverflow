@@ -1,4 +1,4 @@
-<mat-list style="margin-bottom: 2%;">
+<mat-list style="margin-bottom: 2%; overflow-x: hidden;">
     <ng-container *ngFor="let question of questions">           
             <mat-list-item class="title" ><h3>{{question.title}}</h3></mat-list-item>
             <mat-list-item class="description"><p>{{question.description}}</p></mat-list-item>
@@ -7,10 +7,10 @@
                     <span>{{ tag.name }}</span>
                 </div>
             </mat-list>
-            <div>
-                <mat-icon>thumb_up</mat-icon>
-                <mat-icon>thumb_down</mat-icon>
-            </div> 
+            <!-- <div>
+                <mat-icon (click)="like()" style="cursor: pointer;">thumb_up</mat-icon>
+                <mat-icon (click)="dislike()" style="cursor: pointer;">thumb_down</mat-icon>
+            </div>  -->
 
             <mat-list class="questionComment">
                 <div *ngFor="let comment of question.comments">
@@ -18,7 +18,7 @@
                     <mat-divider></mat-divider>
                 </div>
                 <mat-form-field class="questionCommentInput">
-                        <textarea [(ngModel)]="questioncomment"  matInput placeholder="Post comment"></textarea>
+                        <textarea [(ngModel)]="questioncomment"  matInput placeholder="Post comment" required></textarea>
                 </mat-form-field>
                 <button mat-raised-button type = "submit" color = "primary" (click)="postQuestionComment()">SUBMIT</button>
             </mat-list>
@@ -29,23 +29,26 @@
             <mat-divider></mat-divider>
             <h2>Answers:</h2>
             <ng-container *ngFor="let answer of question.answers">
+                    <div class="w3-twothird" style="width:98%;margin-left: 1%;">
+                    <div class="w3-white w3-text-grey w3-card-4" style="margin-bottom: 1%;"> 
                     <mat-list-item class="description"><p>{{answer.answer}}</p></mat-list-item>
-                    
                     <mat-list class="answerComment">
-                            <div *ngFor="let comment of answer.comments">
+                            <mat-list-item *ngFor="let comment of answer.comments">
                                 <span>{{ comment.comment }}</span>
                                 <mat-divider></mat-divider>
-                            </div>
+                            </mat-list-item>
                             <mat-form-field class="answerCommentInput">
-                                    <textarea matInput  #ansCommentInput placeholder="Post comment"></textarea>
+                                    <textarea matInput  #ansCommentInput placeholder="Post comment" required></textarea>
                             </mat-form-field>
                             <button mat-raised-button type = "submit" color = "primary" (click)="postAnswerComment(answer.answer,ansCommentInput)">SUBMIT</button>
                     </mat-list>
-                    <mat-divider></mat-divider>
+                </div></div>
+                    <!-- <mat-divider></mat-divider> -->
             </ng-container>
+           
     </ng-container> 
 </mat-list>
 <mat-form-field class="text">
-    <textarea [(ngModel)]="answer"  matInput placeholder="Post Answer"></textarea>
+    <textarea [(ngModel)]="answer"  matInput placeholder="Post Answer" required></textarea>
 </mat-form-field>
 <button mat-raised-button type = "submit" color = "primary" (click)="postAnswer()">SUBMIT</button>

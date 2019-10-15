@@ -10,18 +10,16 @@ import { AllServicesService } from 'src/app/modules/all-services.service';
 export class NavbarComponent implements OnInit {
 
   flag:Boolean = false;
-  constructor(private service:AllServicesService, private router:Router) {
+  constructor(private service:AllServicesService, private router:Router) {  
+   }
+
+  ngOnInit() {
     this.service.isLoggedIn.subscribe(x => {
       if(x === 'success') {
         this.service.LoggedIn = true;
         this.flag = this.service.LoggedIn;
       }
     });
-    
-    
-   }
-
-  ngOnInit() {
   }
 
   logout() {

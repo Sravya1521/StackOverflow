@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StackoverflowComponent } from './container/stackoverflow/stackoverflow.component';
 import { DashboardLayoutComponent } from './container/dashboard-layout/dashboard-layout.component';
 import { AskQuestionComponent } from './container/ask-question/ask-question.component';
+import { AllServicesService } from '../all-services.service';
 
 
 export const routes: Routes = [
@@ -17,7 +18,7 @@ export const routes: Routes = [
       },
       {
         path:'askquestion',
-        component: AskQuestionComponent
+        component: AskQuestionComponent, canActivate:[AllServicesService]
       },
       {
         path: 'detail',

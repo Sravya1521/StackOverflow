@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AllServicesService } from 'src/app/modules/all-services.service';
 
@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
   
     /** Storing http get response */
     users: any;
+    user$:Observable<any>;
     loginForm : FormGroup;
+    email:string;
+    password:string;
      /** display error message */
     errorMessage: string;
 
@@ -32,7 +35,9 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.service.getUserDetails(this.loginForm.get('email').value).subscribe((data) =>{
+
+   this.user$ = this.service.getUserDetails(this.email); 
+   this.service.getUserDetails(this.email).subscribe((data) =>{
       this.users = data;
       if(this.users.length == 0) {
 
@@ -40,7 +45,8 @@ export class LoginComponent implements OnInit {
 
       } else {
 
-        if((this.loginForm.get('password').value == this.users[0].password) )  {
+        if((this.password == this.users[0].password) )  {
+          this.service.useremail = this.email;
           this.service.isLoggedIn.emit('success');
           this.router.navigateByUrl('dashboard/stackoverflow');
         } else {

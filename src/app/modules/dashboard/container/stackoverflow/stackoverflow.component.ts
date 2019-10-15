@@ -17,7 +17,6 @@ export class StackoverflowComponent implements OnInit {
     this.service.getQuestions().subscribe((data)=> {
       this.questions = data;
     });
-
   }
 
   askQuestion() {

@@ -4,6 +4,7 @@ import { HomeComponent } from './container/home/home.component';
 import { LoginComponent } from './container/login/login.component';
 import { LandingLayoutComponent } from './container/landing-layout/landing-layout.component';
 import { SignupComponent } from './container/signup/signup.component';
+import { AllServicesService } from '../all-services.service';
 
 
 export const routes: Routes = [
@@ -18,7 +19,7 @@ export const routes: Routes = [
       },
       {
         path: 'login',
-        component: LoginComponent,
+        component: LoginComponent
       },
       {
         path:'signup',

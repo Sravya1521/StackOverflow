@@ -17,6 +17,7 @@
 }
 .button-spacer{
   flex: 1 1 auto;
+  //background-color: lightgray;
 }
 .text-spacer{
   flex: 2 2 auto;
@@ -25,8 +26,8 @@
   color: #3f51b5;
 }
 
-.searchBar{
-  margin-left: 10%;
-  width: 70%;
+.pointer {
+  cursor: pointer;
 }
+
 

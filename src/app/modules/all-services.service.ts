@@ -1,16 +1,18 @@
 import { Injectable,Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router, CanActivate } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AllServicesService {
+export class AllServicesService implements CanActivate {
 
   public LoggedIn:Boolean = false;
+  public useremail:string;
   @Output() isLoggedIn: EventEmitter<any> = new EventEmitter();
   public questionTitle:string;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private router:Router) { }
 
   registerUserDetails(email, password, displayName):Observable<any>{
     const httpOptions = {
@@ -90,6 +92,17 @@ export class AllServicesService {
       })
     };
     return this.http.patch<any>(`http://localhost:3000/questions/${id}`,postdata,httpOptions);
+  }
+
+  canActivate():boolean  {
+    
+    if((this.LoggedIn == false && this.useremail == undefined)) {
+      this.router.navigateByUrl('landing/login');
+      return false;
+    } else {
+      return true;
+    }  
+    
   }
 
 }

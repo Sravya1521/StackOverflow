@@ -8,18 +8,26 @@ import { AllServicesService } from 'src/app/modules/all-services.service';
   styleUrls: ['./detail-question.component.scss']
 })
 export class DetailQuestionComponent implements OnInit {
+  userid:any;
+  descriptionArray:[]=[];
   answers:any[] = [];
   comments:any[] = [];
   questioncomment:any;
   answer:any;
   questionid:any;
   questions:any;
-
+  // likeCount:number;
+  // dislikeCount:number;
   @ViewChild('ansCommentInput', {static: false}) ansCommentInput: ElementRef<HTMLInputElement>;
+
   constructor(private router:Router,private service:AllServicesService) { }
 
   ngOnInit() {
     this.service.getQuestion().subscribe((data)=> {
+      // let numberOfLineBreaks = (data[0].description.match(/\n/g)||[]).length;
+      // for(var i=0;i<numberOfLineBreaks;i++) {
+      //   this.descriptionArray.push()
+      // }
       this.questions = data; 
       this.answers = this.questions[0].answers; 
       this.questionid = this.questions[0].id;
@@ -29,38 +37,53 @@ export class DetailQuestionComponent implements OnInit {
 
   postAnswer() {
     if(this.service.LoggedIn) {
-      let data = {
-        answer:this.answer,
-        comments:[]
+
+      if(this.answer == undefined) {
+        console.log("answer cannot be empty");
+      } else {
+
+        let data = {
+          answer:this.answer,
+          comments:[]
+        }
+        this.answers.push(data);
+        let postdata = {
+          answers:this.answers
+        };
+        this.service.postAnswer(this.questionid,postdata).subscribe((data)=>{
+          console.log(data);
+          this.answer = '';
+        });
+  
       }
-      this.answers.push(data);
-      let postdata = {
-        answers:this.answers
-      };
-      this.service.postAnswer(this.questionid,postdata).subscribe((data)=>{
-        console.log(data);
-        this.answer = '';
-      });
+
+
     } else {
       alert("Please Login to post an answer");
       this.router.navigateByUrl('landing/login');
     }
+    
   }
 
   postQuestionComment() {
     if(this.service.LoggedIn) {
-      let data = {
-        userid:3,
-        comment:this.questioncomment
+      if(this.questioncomment == undefined) {
+        console.log("answer cannot be empty");
+      } else {
+        let data = {
+          userid:3,
+          comment:this.questioncomment
+        }
+        this.comments.push(data);
+        let postdata = {
+          comments:this.comments
+        };
+        this.service.postQuestionComment(this.questionid,postdata).subscribe((data)=>{
+          console.log(data);
+          this.questioncomment = '';
+        });
       }
-      this.comments.push(data);
-      let postdata = {
-        comments:this.comments
-      };
-      this.service.postQuestionComment(this.questionid,postdata).subscribe((data)=>{
-        console.log(data);
-        this.questioncomment = '';
-      });
+
     } else {
       alert("Please Login to post a comment");
       this.router.navigateByUrl('landing/login');
@@ -69,25 +92,30 @@ export class DetailQuestionComponent implements OnInit {
 
   postAnswerComment(answer,comment) {
     if(this.service.LoggedIn) {
-      let data = {
-        userid:3,
-        comment:comment.value
-      }
-      this.answers.forEach((element)=> {
-        if(element.answer == answer) {
-          let index = this.answers.findIndex(record => record.answer == element.answer);
-          this.answers[index].comments.push(data);
+      if(comment.value == undefined) {
+        console.log("answer cannot be empty");
+      } else {
+        let data = {
+          userid:3,
+          comment:comment.value
         }
-      });
-  
-      let postdata = {
-        answers:this.answers
-      };
-      
-      this.service.postAnswerComment(this.questionid,postdata).subscribe((data)=> {
-        console.log(data);
-        comment.value = '';
-      });
+        this.answers.forEach((element)=> {
+          if(element.answer == answer) {
+            let index = this.answers.findIndex(record => record.answer == element.answer);
+            this.answers[index].comments.push(data);
+          }
+        });
+    
+        let postdata = {
+          answers:this.answers
+        };
+        
+        this.service.postAnswerComment(this.questionid,postdata).subscribe((data)=> {
+          console.log(data);
+          comment.value = '';
+        });
+      }
+
     } else {
       alert("Please Login to post a comment");
       this.router.navigateByUrl('landing/login');
@@ -95,5 +123,14 @@ export class DetailQuestionComponent implements OnInit {
 
 
   }
+
+  // like() {
+  //   this.likeCount++;
+    
+  // }
+
+  // dislike() {
+  //   this.dislikeCount++;
+  // }
 
 }
