@@ -21,6 +21,8 @@ export class DetailQuestionComponent implements OnInit {
   code:[];
   question$:Observable<any>;
   postAnswer$:Observable<any>;
+  postQuestionComment$:Observable<any>;
+  postAnswerComment$:Observable<any>;
   @ViewChild('ansCommentInput', {static: false}) ansCommentInput: ElementRef<HTMLInputElement>;
 
   constructor(private router:Router,private service:AllServicesService) { }
@@ -94,6 +96,7 @@ export class DetailQuestionComponent implements OnInit {
         let postdata = {
           comments:this.comments
         };
+        this.postQuestionComment$ = this.service.postQuestionComment(this.questionid,postdata);
         this.service.postQuestionComment(this.questionid,postdata).subscribe((data)=>{
           console.log(data);
           this.questioncomment = '';
@@ -125,7 +128,7 @@ export class DetailQuestionComponent implements OnInit {
         let postdata = {
           answers:this.answers
         };
-        
+        this.postAnswerComment$ = this.service.postAnswerComment(this.questionid,postdata);
         this.service.postAnswerComment(this.questionid,postdata).subscribe((data)=> {
           console.log(data);
           comment.value = '';

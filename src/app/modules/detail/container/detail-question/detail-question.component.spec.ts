@@ -326,6 +326,12 @@ const mockquestionData =
     postAnswer(id,postdata):Observable<any> {
       return of([mockquestionData]);
     }
+    postQuestionComment(id,postdata):Observable<any> {
+      return of([mockquestionData]);
+    }
+    postAnswerComment(id,postdata):Observable<any> {
+      return of([mockquestionData]);
+    }
   }
 
 
@@ -393,7 +399,7 @@ describe('DetailQuestionComponent', () => {
     });
   });
 
-  it('navigate to login if not logged in', () => {
+  it('if user tries to post answer navigate to login if not logged in', () => {
     component.postAnswer();
     expect(router.navigateByUrl).toHaveBeenCalledWith('landing/login');
   });
@@ -405,10 +411,46 @@ describe('DetailQuestionComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
+  it('if user tries to post question comment navigate to login if not logged in', () => {
+    component.postQuestionComment();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('landing/login');
+  });
+
+  it('testing posting a question comment', () => {
+    service.LoggedIn = true;
+    component.questioncomment = "sravya";
+    component.questionid = mockquestionData.id;
+    component.comments = mockquestionData.comments;
+    component.postQuestionComment();
+    let title = mockquestionData.title;
+    component.postQuestionComment$.subscribe((data)=> {
+      expect(data[0].title).toEqual(title);
+    });
+  });
+
   it('testing postAnswerComment function is called or not', () => {
     var spy = spyOn(component,'postAnswerComment').and.callThrough();
     component.postAnswerComment(null,null);
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('if user tries to post answer comment navigate to login if not logged in', () => {
+    component.postAnswerComment(null,null);
+    expect(router.navigateByUrl).toHaveBeenCalledWith('landing/login');
+  });
+
+  it('testing posting a answer comment', () => {
+    service.LoggedIn = true;
+    let comment = {
+      value:"stack"
+    }
+    component.questionid = mockquestionData.id;
+    component.answers = mockquestionData.answers;
+    component.postAnswerComment('jhgjhgjhgjhbjhmgbjmh',comment);
+    let title = mockquestionData.title;
+    component.postAnswerComment$.subscribe((data)=> {
+      expect(data[0].title).toEqual(title);
+    });
   });
 
 });
