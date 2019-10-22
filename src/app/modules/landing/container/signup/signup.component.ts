@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { AllServicesService } from 'src/app/modules/all-services.service';
 
 
@@ -14,6 +14,10 @@ import { AllServicesService } from 'src/app/modules/all-services.service';
 export class SignupComponent implements OnInit {
   userForm : FormGroup;
   exist:Boolean = false;
+  email:string;
+  password:string;
+  displayName:string;
+  user$:Observable<any>;
   constructor(private fb: FormBuilder, private router:Router,private service:AllServicesService) { }
 
   ngOnInit() {
@@ -26,9 +30,10 @@ export class SignupComponent implements OnInit {
 
   onRegitration() {
       this.exist = false;
+      this.user$ = this.service.getAllUser();
       this.service.getAllUser().subscribe((data:any) => {
         data.forEach(element => {
-            if(element.email == this.userForm.get('email').value) {
+            if(element.email == this.email) {
               this.exist = true;
             }     
         });
@@ -38,9 +43,9 @@ export class SignupComponent implements OnInit {
         } else {
           
           this.service.registerUserDetails(
-            this.userForm.get('email').value,
-            this.userForm.get('password').value,
-            this.userForm.get('displayName').value).subscribe((data) => 
+            this.email,
+            this.password,
+            this.displayName).subscribe((data) => 
             {
               console.log(data);
               alert("Registration Successfull");

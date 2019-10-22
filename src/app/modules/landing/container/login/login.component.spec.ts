@@ -42,8 +42,8 @@ describe('LoginComponent', () => {
         {
           provide: AllServicesService,
           useClass: fakeService
-        },
-        {provide: Router, useClass: class { navigateByUrl = jasmine.createSpy('navigateByUrl'); }}
+        },{provide: Router, useClass: class { navigateByUrl = jasmine.createSpy('navigateByUrl'); }}
+        
       ]
     })
     .compileComponents();

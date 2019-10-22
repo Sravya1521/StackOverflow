@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AllServicesService } from 'src/app/modules/all-services.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-stackoverflow',
@@ -9,11 +10,13 @@ import { AllServicesService } from 'src/app/modules/all-services.service';
 })
 export class StackoverflowComponent implements OnInit {
   questions:any;
+  question$:Observable<any>
   constructor(private router:Router,private service:AllServicesService) { 
 
   }
 
   ngOnInit() {
+    this.question$ = this.service.getQuestions();
     this.service.getQuestions().subscribe((data)=> {
       this.questions = data;
     });

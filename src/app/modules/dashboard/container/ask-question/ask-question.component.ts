@@ -28,7 +28,8 @@ export class AskQuestionComponent implements OnInit {
   addoptions:Tag[] = [];
   len:number;
   object:Tag;
-
+  submitted = false;
+  tags$:Observable<any>;
   @ViewChild('TagInput', {static: false}) TagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
@@ -39,7 +40,9 @@ export class AskQuestionComponent implements OnInit {
       title: ['',[Validators.required]],
       description: ['', [Validators.required]],
       tag: ['', [Validators.required]],
+      descriptionCode:[''],
     });
+    this.tags$ = this.service.getTags();
     this.service.getTags().subscribe((data:any) => {
       this.len = data.length;
       data.forEach(element => {
@@ -54,9 +57,8 @@ export class AskQuestionComponent implements OnInit {
       );
   }
 
-  // displayFn(user?: Tag): string | undefined {
-  //   return user ? user.name : undefined;
-  // }
+  // convenience getter for easy access to form fields
+  get f() { return this.questionForm.controls; }
 
   private _filter(name: string): Tag[] {
     const filterValue = name.toLowerCase();
@@ -101,25 +103,42 @@ export class AskQuestionComponent implements OnInit {
   }
 
   postQuestion() {
-    let description = this.questionForm.get('description').value.split("\n");
-    let finalDescription = "";
-    for(var i=0;i<description.length;i++) {
-      finalDescription += description[i]+"<br/>";
-    }
-    console.log(finalDescription);
+    
+    this.submitted = true;
 
-    let postdata = {
-      title:this.questionForm.get('title').value,
-      description:this.questionForm.get('description').value,
-      comments:[],
-      answers:[],
-      tags:this.addoptions
-    }
-   // console.log(postdata);
-    this.service.postQuestion(postdata).subscribe((data) => {
-      this.router.navigateByUrl('dashboard/stackoverflow');
-    });
+    // stop here if form is invalid
+    if ((this.questionForm.invalid && this.questionForm.value.title == "") || (this.questionForm.invalid && this.questionForm.value.description == "")) {
+      return;
   }
+
+  console.log(this.questionForm.get('description').value);
+
+      let description = this.questionForm.get('description').value.split("\n");
+      let code =  this.questionForm.get('descriptionCode').value.split("\n");
+      let finalDescription = "",finalCode = "@";
+      for(var i=0;i<code.length;i++) {
+        finalCode += code[i]+"$";
+      }
+      //console.log(finalCode);
+      for(var i=0;i<description.length;i++) {
+        finalDescription += description[i]+"<br>";
+      }
+      finalDescription = finalDescription + finalCode;
+     // console.log(finalDescription);
+  
+      let postdata = {
+        title:this.questionForm.get('title').value,
+        description:finalDescription,
+        comments:[],
+        answers:[],
+        tags:this.addoptions
+      }
+     // console.log(postdata);
+      this.service.postQuestion(postdata).subscribe((data) => {
+        this.router.navigateByUrl('dashboard/stackoverflow');
+      });
+      
+    }
 
 }
 

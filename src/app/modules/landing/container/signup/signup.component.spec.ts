@@ -11,8 +11,9 @@ import { of, Observable, throwError } from 'rxjs';
 import { AllServicesService } from 'src/app/modules/all-services.service';
 
 let router: Router;
+let PageSvc: AllServicesService;
 
-const fakeALlUsersData =     [{
+const fakeAllUsersData =     [{
   "email": "game@gmail.com",
   "password": "Password@13",
   "displayName": "sravya",
@@ -21,10 +22,10 @@ const fakeALlUsersData =     [{
 
 class fakeService {
   getAllUser(): Observable<any> {
-    return of([fakeALlUsersData]);
+    return of([fakeAllUsersData]);
   }
   registerUserDetails(email,password,displayName): Observable<any> {
-    return of([fakeALlUsersData]);
+    return of([fakeAllUsersData]);
   }
 }
 
@@ -56,29 +57,28 @@ describe('SignupComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SignupComponent);
+    PageSvc = TestBed.get(AllServicesService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  fit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  fit('should create regDetailsForm', () => {
+  it('should create regDetailsForm', () => {
     component.ngOnInit()
     expect(component.userForm.valid).toBeFalsy();
-
   });
 
-  fit('should check onRegistration Called or not', () => {
+  it('should check onRegistration Called or not', () => {
     //spyOn(component,'onRegistration').and.callThrough();
     var spy = spyOn(component,'onRegitration').and.callThrough();
     component.onRegitration();
     expect(spy).toHaveBeenCalled();
-  //  expect(router.navigateByUrl).toHaveBeenCalledWith('landing/login');
   });
 
-  fit('testing Email', () => {
+  it('testing Email', () => {
   let errors = {};
   let email = component.userForm.controls['email'];
   expect(email.valid).toBeFalsy();
@@ -97,19 +97,32 @@ describe('SignupComponent', () => {
   expect(errors['required']).toBeFalsy();
   }); 
 
-  // fit('should check onRegistration post Call', () => {
-  //   component.userForm.patchValue({email:fakeALlUsersData[0].email});
-  //   component.userForm.patchValue({password:fakeALlUsersData[0].password});
-  //   component.userForm.patchValue({displayName:fakeALlUsersData[0].displayName});
-  //   component.onRegitration();
-  //   //expect(router.navigateByUrl).toHaveBeenCalledWith('landing/login');
-  // });
+  it('should check onRegistration post Call', () => {
+    component.email = fakeAllUsersData[0].email;
+    component.password = fakeAllUsersData[0].password;
+    component.displayName = fakeAllUsersData[0].displayName;
+    component.onRegitration();
+    component.user$.subscribe((data) => {
+      //console.log(data);
+      expect(data[0]).toEqual(fakeAllUsersData);
+    });
+  });
 
-fit('should check the post call data', () => {
-  spyOn(component,'handleError').and.callThrough();
-  const usergetdetailsMockedcall = spyOn(fakeService,'getAllUser').and.returnValue(throwError({status: 'some error'}));
+
+  it('testing error handling', () => {
+  // arrange
+  fixture.detectChanges();
+  // set form model
+  component.email = fakeAllUsersData[0].email;
+  component.password = fakeAllUsersData[0].password;
+  spyOn(PageSvc,'registerUserDetails').and.returnValue(throwError({status: 404}));
+  var spy = spyOn(component,'handleError').and.callThrough();
+  // act
   component.onRegitration();
-  expect(component.handleError).toHaveBeenCalled();
-});
+  fixture.detectChanges();
+  // assert
+  expect(spy).toHaveBeenCalled();
+
+  });
 
 });

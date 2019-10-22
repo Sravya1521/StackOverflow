@@ -1,10 +1,11 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { AllServicesService } from './all-services.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AllServicesService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports:[HttpClientTestingModule],
+    imports:[HttpClientTestingModule,RouterTestingModule],
     providers:[
       AllServicesService
     ]
@@ -395,5 +396,12 @@ it('http add commment to the answer', inject([HttpTestingController,AllServicesS
   req.flush(mockAnswerData);
 
 }));
+
+it('canActivate method is called or not', () =>{
+  const service: AllServicesService = TestBed.get(AllServicesService);
+  spyOn(service,'canActivate').and.callThrough();
+  service.canActivate();
+  expect(service.canActivate).toHaveBeenCalled();
+});
 
 });

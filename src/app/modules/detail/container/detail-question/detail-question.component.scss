@@ -9,6 +9,7 @@
 }
 .description {
     margin-left: 10px;
+    height: auto !important;
 }
 mat-icon {
     margin-left: 2%;
@@ -20,6 +21,13 @@ mat-icon {
 
 .text {
     width: 100%;
+}
+
+.code {
+    height: auto !important;
+    margin-left: 2%;
+    background-color: lightgray;
+    width: 95% !important;
 }
 
 .questionCommentInput, .answerCommentInput {
